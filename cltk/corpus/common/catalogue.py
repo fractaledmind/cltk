@@ -4,7 +4,7 @@ CORPORA = {
         "languages": [
             "greek"
         ],
-        "location": "https://github.com/cltk/greek_treebank_perseus/raw/master/greek_treebank_perseus.tar.gz",
+        "location": "https://github.com/cltk/greek_corpus_perseus/raw/master/greek_corpus_perseus.tar.gz",
         "markup": "tei_xml",
         "name": "perseus",
         "retrieval": "remote",
@@ -126,9 +126,10 @@ def get_all(key):
     if key.endswith('s'):       # for `languages`
         flat_l = [x for k, v in CORPORA.items()
                   for x in v[key]]
-        return list(set(flat_l))
+        l = list(set(flat_l))
     else:
-        return list(set([v[key] for k, v in CORPORA.items()]))
+        l = list(set([v[key] for k, v in CORPORA.items()]))
+    return sorted(l)
 
 
 def filter_corpora(**kwargs):
@@ -137,7 +138,7 @@ def filter_corpora(**kwargs):
         corpora = [k for k, v in CORPORA.items()
                    if k in corpora
                    if query in v[key]]
-    return list(set(corpora))
+    return sorted(list(set(corpora)))
 
 
 # Information about the various attributes
