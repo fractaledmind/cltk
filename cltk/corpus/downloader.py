@@ -5,11 +5,10 @@ import os
 import tarfile
 import tempfile
 import requests
-
-from cltk.cltk.corpus.wrappers.tlgu import tlgu
-from cltk.cltk.corpus.data import CorpusData
 from cltk.cltk.data import CorpusError
-from cltk.cltk import logger
+from cltk.cltk.corpus.data import CorpusData
+from cltk.cltk.corpus.wrappers.tlgu import tlgu
+from cltk.cltk.corpus.wrappers.logger import logger
 
 
 class CorpusImporter(object):
