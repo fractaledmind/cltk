@@ -27,9 +27,6 @@ class CorpusImporter(object):
         :type location: ``unicode``
 
         """
-        # Set location (default to corpus attribute)
-        location = self._prepare_location(location)
-
         # Prepare local file
         tar_name = self.corpus.name + '.tar.gz'
         self.tar_file = os.path.join(self.corpus.originals_dir(),
@@ -37,6 +34,8 @@ class CorpusImporter(object):
         if os.path.exists(self.tar_file):
             msg = 'Tar file already exists at : {}'.format(self.tar_file)
         else:
+            # Set location (default to corpus attribute)
+            location = self._prepare_location(location)
             if self.corpus.retrieval == 'local':
                 msg = 'Retrieving local data from : {}'.format(location)
                 self._retrieve_local(location)
@@ -187,10 +186,14 @@ class CorpusCompiler(object):
         # Define function to process files within tar
         def process(tar, file):
             if file.isfile():
-                struct_file = file.name.lower()
-                struct_path = os.path.join(self.corpus.structured_dir(),
-                                           struct_file)
-                tar.extractall(self.corpus.structured_dir())
+                # TODO: Do we want to ensure no double nested dirs are generated?
+                # i.e. when unpacking `greek_corpus_perseus`, the dir is:
+                # `/cltk_data/greek/text_corpora/structured/perseus/greek_corpus_perseus/...`
+                # However, with the treebanks, this is actually helpful. 
+                # Do we simply check to see if the tarfile is *merely* a directory,
+                # and if so, turn `named` off?
+                struct_path = self.corpus.structured_dir(named=True)
+                tar.extractall(struct_path)
                 msg = 'Compiled {} to : {}'.format(file.name, struct_path)
                 logger.info(msg)
         return self.unpack_tar(process)
