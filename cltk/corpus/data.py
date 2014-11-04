@@ -3,7 +3,7 @@ __author__ = 'Stephen Margheim <stephen.margheim@gmail.com>'
 __license__ = 'MIT License. See LICENSE.'
 import os
 
-from cltk.cltk.corpus.common.attributes import CORPORA
+from cltk.cltk.corpus.common.catalogue import CORPORA
 from cltk.cltk.data import CLTKData, CorpusError
 
 
