@@ -6,12 +6,12 @@ __license__ = 'MIT License. See LICENSE.'
 import os
 import logging
 import logging.handlers
-from cltk.cltk.config import CLTK_DATA
+from cltk.cltk import CLTK_DATA_DIR
 
 
 class Logger(object):
     def __init__(self):
-        self.logfile = os.path.join(CLTK_DATA, 'cltk.log')
+        self.logfile = os.path.expanduser(os.path.join(CLTK_DATA_DIR, 'cltk.log'))
         self._logger = None
 
     @property
