@@ -4,9 +4,8 @@ __license__ = 'MIT License. See LICENSE.'
 
 import os
 import site
-
-from cltk.cltk.config import CLTK_DATA
-from cltk.cltk import logger
+from cltk.cltk import CLTK_DATA_DIR
+from cltk.cltk.corpus.wrappers.logger import logger
 
 
 class CorpusError(Exception):
@@ -49,7 +48,7 @@ class CLTKData(object):
         if self._data_path:
             return self.resolve_path(self._data_path)
         else:
-            return self.resolve_path(CLTK_DATA)
+            return self.resolve_path(CLTK_DATA_DIR)
 
     @data_path.setter
     def data_path(self, value):
